@@ -31,7 +31,7 @@
         }
         .home-thumb {
             max-width: 300px;
-            padding-top: 70px;
+            /* padding-top: 70px; */
         }
         .bg-overlay, .overlay-dark {
             position: relative;
@@ -73,6 +73,33 @@
             height: 520px;
             
         }
+
+
+
+        .slide_right_alt {
+            border:none;
+            background-position: right;
+            background: linear-gradient(to right, #A151E8 50%,#9372B0 50%) no-repeat scroll right bottom / 210% 100% #A151E8;
+            -webkit-transition: all 200ms ease;
+            -moz-transition: all 200ms ease;
+            transition: all 200ms ease;
+        }
+        .slide_right_alt:hover, .slide_right_alt.active {
+            background-position: left;
+            color: #ffffff;
+        }
+        .slide_left_alt {
+            border:none;
+            background-position: left;
+            background: linear-gradient(to left, #A151E8 50%,#9372B0 50%) no-repeat scroll left bottom / 210% 100% #A151E8;
+            -webkit-transition: all 200ms ease;
+            -moz-transition: all 200ms ease;
+            transition: all 200ms ease;
+        }
+            .slide_left_alt:hover, .slide_left_alt.active {
+            background-position: right;
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>
@@ -80,23 +107,21 @@
 
 <section id="home" class="section bg-voilet bg-overlay overflow-hidden d-flex align-items-center">
     <div class="container">
+        <!-- Store Buttons -->
+        <div class="button-group store-buttons d-flex">
+            <a class="btn btn-primary slide_right_alt" href="#" role="button">Sign In</a>
+            <a class="btn btn-primary slide_left_alt" href="#" role="button">Sign Up</a>
+        </div>
         <div class="row align-items-center">
             <!-- home Intro Start -->
             <div class="col-12 col-md-7 col-lg-6">
                 <div class="home-intro">
+                    
                     <h1 class="text-white">당신의 계모임을 만들어봐요!</h1>
                     <p class="text-white my-4">블록체인 기반 계모임 플렛폼 Aramagyeddon에서 당신의 안전한 계모임을 생성하고 사람들을 모아보세요 변경 불가능한 장부를 자동으로 생성하여 여러분의 곗돈을 안전하게 지켜드립니다.</p>
                     
                     
-                    <!-- Store Buttons -->
-                    <div class="button-group store-buttons d-flex">
-                        <a href="#">
-                            <img src="http://theme-land.com/sApp/demo/assets/img/icon/google-play.png" alt="">
-                        </a>
-                        <a href="#">
-                            <img src="http://theme-land.com/sApp/demo/assets/img/icon/app-store.png" alt="">
-                        </a>
-                    </div>
+                    
                     <span class="d-inline-block text-white fw-3 font-italic mt-3">*Armagyeddon 프로젝트의 테스트 인덱스 페이지입니다.</span>
                 </div>
             </div>
@@ -113,9 +138,9 @@
     <!-- Shape Bottom -->
     <div class="shape-bottom">
         <svg viewBox="0 0 1920 310" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg replaced-svg">
-            <title>Shape</title>
+            <!-- <title>Shape</title>
             <desc>Created with shape</desc>
-            <defs></defs>
+            <defs></defs> -->
             <g id="Landing-Page" stroke="none" stroke-width="12" fill="none" fill-rule="evenodd">
                 <g id="sApp-v1.0" transform="translate(0.000000, -554.000000)" fill="#ffffff">
                     <path d="M-3,551 C186.257589,757.321118 319.044414,856.322454 395.360475,848.004007 C509.834566,835.526337 561.525143,796.329212 637.731734,765.961549 C713.938325,735.593886 816.980646,681.910577 1035.72208,733.065469 C1254.46351,784.220361 1511.54925,678.92359 1539.40808,662.398665 C1567.2669,645.87374 1660.9143,591.478574 1773.19378,597.641868 C1848.04677,601.75073 1901.75645,588.357675 1934.32284,557.462704 L1934.32284,863.183395 L-3,863.183395" id="v1.0"></path>

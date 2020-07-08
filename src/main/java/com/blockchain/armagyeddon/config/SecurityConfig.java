@@ -26,10 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
 
-//        http.formLogin()// 로그인 폼 사용
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/main") // 로그인 성공시 main 호출
-//                .permitAll();
+       http.formLogin()// 로그인 폼 사용
+               .loginPage("/login")
+               .defaultSuccessUrl("/main") // 로그인 성공시 main 호출
+               .permitAll();
 
         http.logout()
                 .logoutSuccessUrl("/");
