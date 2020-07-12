@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
 //                .mvcMatchers("/","/sign-up", "/check-email-token", "/login").permitAll() // 인증 허가
 
-                .mvcMatchers("/","/test").permitAll()
+                .mvcMatchers("/", "/sign-up", "/test").permitAll()
                 .anyRequest().authenticated();
 
 
