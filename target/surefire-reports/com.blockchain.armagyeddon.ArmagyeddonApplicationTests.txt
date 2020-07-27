@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.blockchain.armagyeddon.ArmagyeddonApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.563 s - in com.blockchain.armagyeddon.ArmagyeddonApplicationTests
