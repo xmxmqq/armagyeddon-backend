@@ -23,4 +23,23 @@ public class MainController {
     public String test(){
         return "test";
     }
+
+    @GetMapping("/testform")
+    public String testform(){
+        return "testform";
+    }
+
+    @GetMapping("/gyefinder")
+    public String gyefinder(){
+        return "gyefinder";
+    }
+
+    @GetMapping("/gyecreation")
+    public String gyecreation(){
+        return "gyecreation";
+    }
+
+
+
+
 }
