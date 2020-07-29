@@ -2,7 +2,6 @@ package com.blockchain.armagyeddon.main;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -37,6 +36,11 @@ public class MainController {
     @GetMapping("/gyecreation")
     public String gyecreation(){
         return "gyecreation";
+    }
+
+    @GetMapping("/gyejoining")
+    public String gyejoining(){
+        return "gyejoining";
     }
 
 
