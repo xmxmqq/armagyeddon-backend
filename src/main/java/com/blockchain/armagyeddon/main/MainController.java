@@ -8,10 +8,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MainController {
     
-   @GetMapping("/login")
-   public String login(){
-       return "login";
-   }
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
 
     @GetMapping("/sign-up")
     public String signUp(){
