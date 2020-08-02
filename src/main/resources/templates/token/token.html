@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Token</title>
+
+    <style>
+        body{
+            background:#be94e3;
+        }
+        
+        .token_page .panel-default{
+            padding: 31%;
+            margin-top: -27%;
+        }
+        .token_page .panel-body{
+            padding: 15%;
+            margin-bottom: -50%;
+            background: #fff;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        img{
+            width:40%;
+            margin-bottom:10%;
+        }
+        .btnSend{
+            background: #A151E8;
+            border:none;
+        }
+        .token_page .dropdown{
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+        }
+        .token_page .dropdown button{
+            width: 100%;
+        }
+        .token_page .dropdown ul{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+<div class="container token_page">
+    <div class="row">
+        <div class="col-md-12 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="text-center">
+                        <img src="/images/token.svg" alt="token" >
+                        <h2 class="text-center">Remittance Token</h2>
+                        <p>Send your token to your Gye</p>
+                        <h4>Your balance : 300AT</h4>
+                        <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select class="form-control" id="sel1">
+                                        <option selected="true" disabled="disabled">Please Select Target Gye</option>
+                                        <option>NoteBook Gye</option>
+                                        <option>Travle Gye</option>
+                                        <option>Saving Gye</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                    <input id="forgetAnswer" name="forgetAnswer" placeholder="Input balance" class="form-control"  type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input name="btnSend" class="btn btn-lg btn-primary btn-block btnSend" value="remit" type="submit">
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+</body>
+
+</html>
