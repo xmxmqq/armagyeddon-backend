@@ -44,6 +44,12 @@ public class MainController {
     }
 
 
+    @GetMapping("/token")
+    public String toekn(){
+        return "token/token";
+    }
+
+
 
 
 }
