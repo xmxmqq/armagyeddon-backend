@@ -20,9 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//                .mvcMatchers("/","/sign-up", "/check-email-token", "/login").permitAll() // 인증 허가
 
-                // .mvcMatchers("/", "/sign-up", "/test", "/react/*").permitAll()
                 .mvcMatchers("/", "/*").permitAll()
                 .anyRequest().authenticated();
 
