@@ -49,6 +49,11 @@ public class MainController {
         return "token/token";
     }
 
+    @GetMapping("token/charge")
+    public String charge(){
+        return "token/charge";
+    }
+
 
 
 
