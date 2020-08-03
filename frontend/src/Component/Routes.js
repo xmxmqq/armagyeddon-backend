@@ -9,7 +9,7 @@ import Index from "../Pages/Index";
 export default () => (
     <Router>
         <Header/>
-        <Route path="/index" component={Index}/>
+        <Route path="/home" component={Index}/>
         <Route path="/login" component={Login}/>
         <Route path="/spiderman" component={SpiderMan}/>
     </Router>
