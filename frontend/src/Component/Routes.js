@@ -1,16 +1,34 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, useLocation } from 'react-router-dom';
 
 import Login from "../Pages/Login";
-import SpiderMan from "../Pages/SpiderMan";
 import Header from "./Header";
-import Index from "../Pages/Index";
+import Home from "../Pages/Home";
 
-export default () => (
-    <Router>
-        <Header/>
-        <Route path="/home" component={Index}/>
-        <Route path="/login" component={Login}/>
-        <Route path="/spiderman" component={SpiderMan}/>
-    </Router>
-)
+class Routes extends React.Component {
+    constructor(props){
+        super(props);
+        // this.state = {location: useLocation()};
+    }
+    render() {
+        return(
+            <Router>
+                <Header/>
+                {/* {this.state.location} */}
+                <Route exact  path="/" component={Home}/>
+                <Route path="/login" component={Login}/>
+                
+            </Router>
+        );
+    }
+}
+
+export default Routes;
+// export default () => (
+//     <Router>
+//         <Header/>
+//         <Route exact  path="/" component={Home}/>
+//         <Route path="/login" component={Login}/>
+        
+//     </Router>
+// )

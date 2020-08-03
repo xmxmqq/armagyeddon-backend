@@ -12,7 +12,7 @@ class Header extends React.Component {
             <section id="home" className="section bg-voilet bg-overlay overflow-hidden d-flex align-items-center">
                 <div className="container">
                     <div className="button-group store-buttons d-flex">
-                        <Link to="/home" className="btn btn-primary slide_right_alt">
+                        <Link to="/" className="btn btn-primary slide_right_alt">
                             Home
                         </Link>
                         
