@@ -1,4 +1,4 @@
-package com.blockchain.armagyeddon.main;
+package com.blockchain.armagyeddon.controller;
 
 import java.util.HashMap;
 import java.util.Map;
