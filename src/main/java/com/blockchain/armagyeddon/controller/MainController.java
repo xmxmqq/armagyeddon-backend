@@ -1,4 +1,4 @@
-package com.blockchain.armagyeddon.main;
+package com.blockchain.armagyeddon.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +41,17 @@ public class MainController {
     @GetMapping("/gyejoining")
     public String gyejoining(){
         return "gyejoining";
+    }
+
+
+    @GetMapping("/token")
+    public String toekn(){
+        return "token/token";
+    }
+
+    @GetMapping("token/charge")
+    public String charge(){
+        return "token/charge";
     }
 
 

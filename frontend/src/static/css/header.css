@@ -1,0 +1,45 @@
+
+       
+       
+        .bg-voilet {
+            background: #be94e3;
+        }
+       
+
+        .bg-overlay, .overlay-dark {
+            position: relative;
+            z-index: 0;
+        }
+
+        .button-group a {
+            margin-right: 10px;
+        }
+        .button-group {
+            margin: 15px;
+        }
+
+
+        .slide_right_alt {
+            border:none;
+            background-position: right;
+            background: linear-gradient(to right, #A151E8 50%,#9372B0 50%) no-repeat scroll right bottom / 210% 100% #A151E8;
+            -webkit-transition: all 200ms ease;
+            -moz-transition: all 200ms ease;
+            transition: all 200ms ease;
+        }
+        .slide_right_alt:hover, .slide_right_alt.active {
+            background-position: left;
+            color: #ffffff;
+        }
+        .slide_left_alt {
+            border:none;
+            background-position: left;
+            background: linear-gradient(to left, #A151E8 50%,#9372B0 50%) no-repeat scroll left bottom / 210% 100% #A151E8;
+            -webkit-transition: all 200ms ease;
+            -moz-transition: all 200ms ease;
+            transition: all 200ms ease;
+        }
+        .slide_left_alt:hover, .slide_left_alt.active {
+            background-position: right;
+            color: #ffffff;
+        }
