@@ -1,2 +1,5 @@
+<img src="icon.png" alt="icon" height="200px">
+
 # Armagyeddon
-블록체인기반 계모임 플랫폼
+Armagyeddon is blockchain-based traditional Korean cooperative organization platform
+
