@@ -22,6 +22,7 @@ Armagyeddon is blockchain-based traditional Korean cooperative organization plat
 # Usage
 - Connect blockchain server with web3j
 - Response for front-end request 
+- Secure with JWT(JSON Web Token)
 
 # Related repository
 - [Front-end](https://github.com/wjrmffldrhrl/armagyeddon-frontend)
