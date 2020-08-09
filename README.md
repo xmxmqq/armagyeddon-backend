@@ -20,8 +20,8 @@ Armagyeddon is blockchain-based traditional Korean cooperative organization plat
 `mvn spring-boot:run`  
 
 # Usage
-
-
+- Connect blockchain server with web3j
+- Response for front-end request 
 
 # Related repository
 - [Front-end](https://github.com/wjrmffldrhrl/armagyeddon-frontend)
