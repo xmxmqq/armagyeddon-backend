@@ -31,7 +31,7 @@ public class TokenController {
 
     @GetMapping("/charge/{email}/{amount}")
     public String chargeToken(@PathVariable String email, 
-        @PathVariable int amount) throws IOException {
+        @PathVariable String amount) throws IOException {
 
         return tokenService.chargeToken(email, amount);
     }
