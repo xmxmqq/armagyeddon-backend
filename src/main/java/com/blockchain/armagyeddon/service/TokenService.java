@@ -61,12 +61,23 @@ public class TokenService {
         
         Function function = new Function(functionName, inputParameters, outputParameters);
 
+        System.out.println("function : " + function);
+
         // send transaction from address[0] to contract
         Transaction transaction = Transaction.createEthCallTransaction(addressList.get(0),
             armaTokenAddress, FunctionEncoder.encode(function));
+
+        System.out.println("transaction : " + transaction);
         
+        System.out.println("data : " + transaction.getData());
+
+        System.out.println("from : " + transaction.getFrom());
+        
+
         EthCall ethCall = web3j.ethCall(transaction, DefaultBlockParameterName.LATEST).send();
         
+        System.out.println("ethCall : " + ethCall.getResult());
+
         List<Type> decode = FunctionReturnDecoder.decode(ethCall.getResult(), function.getOutputParameters());
 
         return decode;
@@ -78,7 +89,7 @@ public class TokenService {
 
         List<Type> decode = setAndGetResultFunction("totalSupply", 
             Collections.emptyList(), Arrays.asList(new TypeReference<Uint256>(){}));
-
+        
         return decode.get(0).getValue().toString();
    
     }
@@ -92,9 +103,7 @@ public class TokenService {
         if(targetUser == null)
             return "user [" + email + "] didn't exist";
 
-
         String address = targetUser.getPublic_key();
-
         
         System.out.println(address);
 
@@ -103,5 +112,25 @@ public class TokenService {
         balance = decode.get(0).getValue().toString();
         
         return balance;
+        
+    }
+
+    public String chargeToken(String email, int amount) throws IOException {
+
+        UserInfo targetUser = userInfoRepository.findByEmail(email);
+
+        if(targetUser == null)
+            return "user [" + email + "] didn't exist";
+
+        String address = targetUser.getPublic_key();
+
+        System.out.println("user address : " + address);
+
+        setAndGetResultFunction("mint", 
+            Arrays.asList(new Address(address), new Uint256(amount)), Collections.emptyList());
+
+
+        return "good";
+
     }
 }
