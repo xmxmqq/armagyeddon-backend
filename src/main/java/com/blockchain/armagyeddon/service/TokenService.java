@@ -25,7 +25,7 @@ import org.web3j.protocol.http.HttpService;
 @Service
 @Transactional
 public class TokenService {
-    String armaTokenAddress = "0xB402c4bD78746Cb902d706a30C1BA52C38a6eFe6";
+    String armaTokenAddress = "0x5d52a93F11e7ae6EDe9f1dF25A87AB17985d48EF";
     String networkAddress = "http://127.0.0.1:7545";
     Web3j web3j;
 
