@@ -147,9 +147,9 @@ public class TokenService {
         Transaction transaction = Transaction.createFunctionCallTransaction(addressList.get(0), nonce,
                 Transaction.DEFAULT_GAS, null, armaTokenAddress, FunctionEncoder.encode(function));
 
-        EthSendTransaction ethSendTransaction = null;
+        
         try {
-            ethSendTransaction = web3j.ethSendTransaction(transaction).send();
+            web3j.ethSendTransaction(transaction).send();
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
