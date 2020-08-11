@@ -7,16 +7,16 @@ Armagyeddon is blockchain-based traditional Korean cooperative organization plat
 
 # Installation
 
-1. Install java  
+## java  
 `sudo apt install openjdk-11-jre-headless`
 
-2. Install maven  
+## maven  
 `sudo apt-get install maven`  
 
-3. Clone this repository  
+## git clone
 `git clone https://github.com/wjrmffldrhrl/armagyeddon-backend.git`
 
-4. Run Spring boot with maven  
+## run Spring boot with maven  
 `mvn spring-boot:run`  
 
 # Usage
