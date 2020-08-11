@@ -1,6 +1,6 @@
 <img src="icon.png" alt="icon" height="200px">
 
-# Armagyeddon 
+# Armagyeddon Back-end
 Armagyeddon is blockchain-based traditional Korean cooperative organization platform 
 
 <img src="flowchart.png" alt="flowchart">
