@@ -33,7 +33,12 @@ public class TokenController {
     public String chargeToken(@PathVariable String email, 
         @PathVariable String amount) throws IOException {
 
-        return tokenService.chargeToken(email, amount);
+        boolean result = tokenService.chargeToken(email, amount);
+
+        if(!result)
+            return "didn't work";
+
+        return "done";
     }
     
 }
