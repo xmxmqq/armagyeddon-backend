@@ -32,10 +32,11 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
-    //authenticationManager.authenticate동작 확인할 것
+    // work with jwtUserDetailsService
     private void authenticate(String email, String password) throws Exception {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+            authenticationManager.authenticate(
+                  new UsernamePasswordAuthenticationToken(email, password));
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
@@ -46,13 +47,14 @@ public class JwtAuthenticationController {
     // Front에서 들어오는 회원 인증 요청
     // JwtRequest내부에 email, password가 맵핑되어 들어온다
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(
+            @RequestBody JwtRequest authenticationRequest) throws Exception {
         
         // 들어온 값 출력
         System.out.println("request body : " + authenticationRequest.getEmail() 
                 + ", " + authenticationRequest.getPassword());
         
-                
+        // authenticationManager        
         authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 
   
