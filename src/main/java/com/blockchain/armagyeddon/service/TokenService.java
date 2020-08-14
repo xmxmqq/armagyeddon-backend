@@ -188,6 +188,33 @@ public class TokenService {
 
     }
 
+    // 토큰 전송 기능 
+    // 잔액이 부족한 경우에 대한 처리 추가할 것
+    // transfer 함수는 호출자의 계좌에서 토큰을 전송하는 것인데 어떻게 할 것인가?
+    // public boolean sendToken(String from, String to, String amount){
+    //     UserInfo fromUser = userInfoRepository.findByEmail(from);
+    //     UserInfo toUser = userInfoRepository.findByEmail(to);
+
+    //     BigInteger amount_ = new BigInteger(amount);
+
+    //     if (fromUser == null || toUser == null){
+    //         System.out.println("user didn't exist");
+    //         return false;
+    //     }
+
+    //     String fromUserAddress = fromUser.getPublic_key();
+    //     String toUserAddress = toUser.getPublic_key();
+
+        
+        
+        
+
+    // }
+
+    // public boolean burnToken(String from, String amount){
+
+    // }
+
     
     
     
