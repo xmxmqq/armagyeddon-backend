@@ -180,47 +180,6 @@ public class TokenService {
         List<Type> inputParameters = new ArrayList<>();
         inputParameters.add(new Address(address));
         inputParameters.add(new Uint256(amount_));
-
-        // // Create contract function
-        // Function function = new Function("mint", inputParameters,
-        //         Collections.emptyList());
-
-        // EthGetTransactionCount ethGetTransactionCount = null;
-
-
-        // // Get Transaction nounce
-        // try {
-        //     ethGetTransactionCount = web3j.ethGetTransactionCount(addressList.get(0), 
-        //         DefaultBlockParameterName.LATEST).sendAsync().get();
-        // } catch (InterruptedException | ExecutionException e1) {
-        //     // TODO Auto-generated catch block
-        //     e1.printStackTrace();
-        // }
-
-        // BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-
-        // /*
-        //     createFunctionCallTransaction(String from, BigInteger nonce, BigInteger gasPrice, 
-        //         BigInteger gasLimit, String to, String data)
-        // */
-        // Transaction transaction = 
-        //     Transaction.createFunctionCallTransaction(addressList.get(0), nonce,
-        //         Transaction.DEFAULT_GAS, null, armaTokenAddress, FunctionEncoder.encode(function));
-        
-        // try {
-        //     // Sent transaction
-        //     web3j.ethSendTransaction(transaction).send();
-        // } catch (IOException e1) {
-        //     // TODO Auto-generated catch block
-        //     e1.printStackTrace();
-        // }
-
-        // // ledger에 쓰여지기 까지 기다리기.
-        // try {
-        //     Thread.sleep(2000);
-        // } catch (InterruptedException e) {
-        //     e.printStackTrace();
-        // }
         
 
         transactionFunction("mint", inputParameters, Collections.emptyList());
