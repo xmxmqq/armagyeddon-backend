@@ -218,9 +218,30 @@ public class TokenService {
 
     }
 
-    // public boolean burnToken(String from, String amount){
+    public boolean burnToken(String from, String amount){
+        UserInfo fromUser = userInfoRepository.findByEmail(from);
+        
 
-    // }
+        BigInteger amount_ = new BigInteger(amount);
+
+        if (fromUser == null){
+            System.out.println("user didn't exist");
+            return false;
+        }
+
+        String fromUserAddress = fromUser.getPublic_key();
+        
+        
+        List<Type> inputParameters = new ArrayList<>();
+        inputParameters.add(new Address(fromUserAddress));
+        
+        inputParameters.add(new Uint256(amount_));
+        
+
+        transactionFunction("burn", inputParameters, Collections.emptyList());
+
+        return true;
+    }
 
     
     
