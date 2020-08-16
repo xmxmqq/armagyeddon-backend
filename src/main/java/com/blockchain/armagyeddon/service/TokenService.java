@@ -41,7 +41,7 @@ public class TokenService {
     private UserInfoRepository userInfoRepository;
 
     // Token contract address
-    private String armaTokenAddress = "0x884e55652aa6aC41f7c042a172872eada5621415";
+    private String armaTokenAddress = "0x4b01a16135b810dF90A68E123E90F46Fda73383A";
     private String networkAddress = "http://127.0.0.1:7545";
     private Web3j web3j;
 

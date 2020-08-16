@@ -40,5 +40,29 @@ public class TokenController {
 
         return "done";
     }
+
+    @GetMapping("/send/{from}/{to}/{amount}")
+    public String sendToken(@PathVariable String from, 
+        @PathVariable String to, @PathVariable String amount){
+
+        boolean result = tokenService.sendToken(from, to, amount);
+
+        if(!result)
+            return "didn't work";
+
+        return "done";
+    }
+
+    @GetMapping("/use/{email}/{amount}")
+    public String useToken(@PathVariable String email,
+        @PathVariable String amount){
+
+        boolean result = tokenService.burnToken(email, amount);
+
+        if(!result)
+            return "didn't work";
+
+        return "done";
+    }
     
 }
