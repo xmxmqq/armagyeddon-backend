@@ -87,10 +87,11 @@ public class TokenService {
         // Create contract function
         Function function = new Function(functionName, inputParameters, outputParameters);
 
+        // For the check nonce
         EthGetTransactionCount ethGetTransactionCount = null;
 
 
-        // Get Transaction nounce
+        // Get Transaction nonce
         try {
             ethGetTransactionCount = web3j.ethGetTransactionCount(addressList.get(0), 
                 DefaultBlockParameterName.LATEST).sendAsync().get();
@@ -99,15 +100,15 @@ public class TokenService {
             e1.printStackTrace();
         }
 
+        
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
 
-        /*
-        createFunctionCallTransaction(String from, BigInteger nonce, BigInteger gasPrice, 
-        BigInteger gasLimit, String to, String data)
-        */
+
+
+        // Create Transaction with nonce
         Transaction transaction = 
-        Transaction.createFunctionCallTransaction(addressList.get(0), nonce,
-        Transaction.DEFAULT_GAS, null, armaTokenAddress, FunctionEncoder.encode(function));
+            Transaction.createFunctionCallTransaction(addressList.get(0), nonce,
+            Transaction.DEFAULT_GAS, null, armaTokenAddress, FunctionEncoder.encode(function));
 
         try {
         // Sent transaction
@@ -124,9 +125,7 @@ public class TokenService {
             e.printStackTrace();
         }
 
-        // List<Type> decode;
 
-        // return decode;
     }
 
     // Get total supplied token
