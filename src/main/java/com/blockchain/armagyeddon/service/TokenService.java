@@ -2,6 +2,9 @@ package com.blockchain.armagyeddon.service;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,7 +28,13 @@ import org.web3j.abi.FunctionReturnDecoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.methods.response.PersonalListAccounts;
-
+import org.web3j.crypto.CipherException;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Keys;
+import org.web3j.crypto.Wallet;
+import org.web3j.crypto.WalletFile;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthCall;
@@ -40,7 +49,9 @@ public class TokenService {
     private UserInfoRepository userInfoRepository;
 
     // Token contract address
-    private String armaTokenAddress = "0x87cAa65D6Bb3D8E602e0e5F232e89AFbDac71fbe";
+
+    private String armaTokenAddress = "0x0f6BBb114F253924ec28C7146fB9374BA005c035";
+
     private String networkAddress = "http://127.0.0.1:7545";
     private Web3j web3j;
 
@@ -70,7 +81,6 @@ public class TokenService {
         Transaction transaction = Transaction.createEthCallTransaction(addressList.get(0), armaTokenAddress,
                 FunctionEncoder.encode(function));
 
-
         EthCall ethCall = web3j.ethCall(transaction, DefaultBlockParameterName.LATEST).send();
 
 
@@ -80,7 +90,9 @@ public class TokenService {
     }
 
     private void transactionFunction(String functionName, List<Type> inputParameters,
-                                     List<TypeReference<?>> outputParameters) {
+
+            List<TypeReference<?>> outputParameters) {
+
 
         // Create contract function
         Function function = new Function(functionName, inputParameters, outputParameters);
@@ -88,11 +100,12 @@ public class TokenService {
         // For the check nonce
         EthGetTransactionCount ethGetTransactionCount = null;
 
-
         // Get Transaction nonce
         try {
-            ethGetTransactionCount = web3j.ethGetTransactionCount(addressList.get(0),
-                    DefaultBlockParameterName.LATEST).sendAsync().get();
+
+            ethGetTransactionCount = web3j.ethGetTransactionCount(addressList.get(0), DefaultBlockParameterName.LATEST)
+                    .sendAsync().get();
+
         } catch (InterruptedException | ExecutionException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -101,11 +114,10 @@ public class TokenService {
 
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
 
-
         // Create Transaction with nonce
-        Transaction transaction =
-                Transaction.createFunctionCallTransaction(addressList.get(0), nonce,
-                        Transaction.DEFAULT_GAS, null, armaTokenAddress, FunctionEncoder.encode(function));
+        Transaction transaction = Transaction.createFunctionCallTransaction(addressList.get(0), nonce,
+                Transaction.DEFAULT_GAS, null, armaTokenAddress, FunctionEncoder.encode(function));
+
 
         try {
             // Sent transaction
@@ -121,7 +133,6 @@ public class TokenService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
 
     }
 
@@ -185,7 +196,7 @@ public class TokenService {
 
     }
 
-    // 토큰 전송 기능 
+    // 토큰 전송 기능
     // 잔액이 부족한 경우에 대한 처리 추가할 것
 
     public boolean sendToken(String from, String to, String amount) {
@@ -228,7 +239,6 @@ public class TokenService {
 
         String fromUserAddress = fromUser.getPublic_key();
 
-
         List<Type> inputParameters = new ArrayList<>();
         inputParameters.add(new Address(fromUserAddress));
 
@@ -240,5 +250,19 @@ public class TokenService {
         return true;
     }
 
+
+    public String createAccount(UserInfo userinfo) throws InvalidAlgorithmParameterException, NoSuchAlgorithmException,
+            NoSuchProviderException, CipherException {
+
+        ECKeyPair keyPair = Keys.createEcKeyPair();
+            
+        String password = userinfo.getPassword();
+
+        WalletFile wallet = Wallet.createStandard(password, keyPair);       
+
+        return wallet.getAddress();
+    }
+
+    
 
 }
