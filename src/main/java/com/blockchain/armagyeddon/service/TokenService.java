@@ -25,7 +25,12 @@ import org.web3j.abi.FunctionReturnDecoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.methods.response.PersonalListAccounts;
-
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Keys;
+import org.web3j.crypto.Wallet;
+import org.web3j.crypto.WalletFile;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthCall;
@@ -240,6 +245,22 @@ public class TokenService {
         transactionFunction("burn", inputParameters, Collections.emptyList());
 
         return true;
+    }
+
+    public String createAccount(){
+
+        ECKeyPair keyPair = Keys.createEcKeyPair();
+
+        String privateKey = keyPair.getPrivateKey().toString(16);
+        String publicKey = keyPair.getPublicKey().toString(16);
+        Credentials credentials=Credentials.create(privateKey, publicKey);
+
+            
+        String password = "secr3t";
+
+        WalletFile wallet = Wallet.createStandard(password, keyPair);       
+
+        return wallet.getAddress();
     }
 
     
