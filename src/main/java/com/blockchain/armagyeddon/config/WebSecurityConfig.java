@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // user for matching credentials
         // Use BCryptPasswordEncoder
         auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
-}
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -54,14 +54,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         // We don't need CSRF for this example
         httpSecurity.csrf().disable()
-            // dont authenticate this particular request
-            .authorizeRequests().antMatchers("/authenticate").permitAll().
-            // all other requests need to be authenticated
-                anyRequest().authenticated().and().
-            
-            // stateless session exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-                exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                // dont authenticate this particular request
+                .authorizeRequests()
+                .antMatchers("/authenticate", "/user-info").permitAll()
+                // all other requests need to be authenticated
+                        .anyRequest().authenticated().and()
+
+                // stateless session exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+                        .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
