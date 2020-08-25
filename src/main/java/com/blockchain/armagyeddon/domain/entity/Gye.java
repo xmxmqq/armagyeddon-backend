@@ -25,7 +25,7 @@ public class Gye {
     private String type;
 
     @Column(length = 30, unique = true, nullable = false)
-    private String name;
+    private String title;
 
     @Column(length = 30, nullable = false)
     private int targetMoney;
@@ -39,6 +39,9 @@ public class Gye {
     @Column(length = 20, nullable = false)
     private String state;
 
+    @Column(length = 20, nullable = false)
+    private String master;
+
     @OneToMany(mappedBy = "gye") // mappedBy(참조당하는 쪽) = gye
-    private List<UserGye> userGyes = new ArrayList<>();
+    private List<GyeUser> gyeUsers = new ArrayList<>();
 }

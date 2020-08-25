@@ -33,7 +33,7 @@ public class UserInfo {
     private String public_key;
 
     @OneToMany(mappedBy = "userinfo") // mappedBy(참조당하는 쪽) = userInfo
-    private List<UserGye> userGyes = new ArrayList<>();
+    private List<GyeUser> gyeUsers = new ArrayList<>();
 
 
 }

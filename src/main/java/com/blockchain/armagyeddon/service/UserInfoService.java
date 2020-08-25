@@ -8,11 +8,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserInfoService {
+
     private final UserInfoRepository userInfoRepository;
     private final PasswordEncoder passwordEncoder;
+
 
     public Long saveUserInfo(UserInfoDto userInfoDto) {
 
@@ -27,6 +31,22 @@ public class UserInfoService {
     public UserInfo getUserInfo(String email) {
 
         return userInfoRepository.findByEmail(email);
-
     }
+
+    public Optional<UserInfo> findById(Long id) {
+        Optional<UserInfo> userInfo = userInfoRepository.findById(id);
+        return userInfo;
+    }
+
+//    // 목록 조회
+//    public List<UserInfo> findAll() {
+//
+//        return userInfoRepository.findAll();
+//    }
+
+//    public UserInfo findUserInfo(Long id) {
+//        UserInfo findUserInfo = UserInfoRepository.findById(id);
+//        return findUserInfo;
+//    }
+
 }
