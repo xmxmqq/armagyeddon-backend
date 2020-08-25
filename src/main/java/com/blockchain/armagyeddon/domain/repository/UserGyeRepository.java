@@ -1,4 +1,2 @@
-package com.blockchain.armagyeddon.domain.repository;
-
-public class UserGyeRepository {
+package com.blockchain.armagyeddon.domain.repository;public interface UserGyeRepository {
 }
