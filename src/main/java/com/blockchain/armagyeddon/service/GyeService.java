@@ -43,10 +43,10 @@ public class GyeService {
 
     //계 입력
     public void save(Gye gye) {
-        if (!gyeRepository.existsByName(gye.getName())) {
+        if (!gyeRepository.existsByName(gye.getTitle())) {
             gyeRepository.save(gye);
         } else {
-            System.out.println("exitsewfwegefwekj");
+            System.out.println("Already exists!");
         }
 
     }
