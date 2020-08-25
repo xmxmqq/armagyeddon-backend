@@ -2,6 +2,9 @@ package com.blockchain.armagyeddon.service;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,12 +28,17 @@ import org.web3j.abi.FunctionReturnDecoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.methods.response.PersonalListAccounts;
-
+import org.web3j.crypto.CipherException;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Keys;
+import org.web3j.crypto.Wallet;
+import org.web3j.crypto.WalletFile;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthCall;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 
 @Service
@@ -41,7 +49,9 @@ public class TokenService {
     private UserInfoRepository userInfoRepository;
 
     // Token contract address
-    private String armaTokenAddress = "0x125A8eb6710BB902D7e717c612FF91f4d01876eA";
+
+
+    private String armaTokenAddress = "0x0f6BBb114F253924ec28C7146fB9374BA005c035";
     private String networkAddress = "http://127.0.0.1:7545";
     private Web3j web3j;
 
@@ -61,7 +71,7 @@ public class TokenService {
 
     // no transaction contract
     private List<Type> viewFunction(String functionName, List<Type> inputParameters,
-            List<TypeReference<?>> outputParameters) throws IOException {
+                                    List<TypeReference<?>> outputParameters) throws IOException {
 
         Function function = new Function(functionName, inputParameters, outputParameters);
 
@@ -71,10 +81,8 @@ public class TokenService {
         Transaction transaction = Transaction.createEthCallTransaction(addressList.get(0), armaTokenAddress,
                 FunctionEncoder.encode(function));
 
-
         EthCall ethCall = web3j.ethCall(transaction, DefaultBlockParameterName.LATEST).send();
 
-     
 
         List<Type> decode = FunctionReturnDecoder.decode(ethCall.getResult(), function.getOutputParameters());
 
@@ -82,7 +90,9 @@ public class TokenService {
     }
 
     private void transactionFunction(String functionName, List<Type> inputParameters,
-        List<TypeReference<?>> outputParameters) {
+
+            List<TypeReference<?>> outputParameters) {
+
 
         // Create contract function
         Function function = new Function(functionName, inputParameters, outputParameters);
@@ -90,31 +100,30 @@ public class TokenService {
         // For the check nonce
         EthGetTransactionCount ethGetTransactionCount = null;
 
-
         // Get Transaction nonce
         try {
-            ethGetTransactionCount = web3j.ethGetTransactionCount(addressList.get(0), 
-                DefaultBlockParameterName.LATEST).sendAsync().get();
+
+            ethGetTransactionCount = web3j.ethGetTransactionCount(addressList.get(0), DefaultBlockParameterName.LATEST)
+                    .sendAsync().get();
+
         } catch (InterruptedException | ExecutionException e1) {
-        // TODO Auto-generated catch block
+            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
 
-        
+
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
 
-
-
         // Create Transaction with nonce
-        Transaction transaction = 
-            Transaction.createFunctionCallTransaction(addressList.get(0), nonce,
-            Transaction.DEFAULT_GAS, null, armaTokenAddress, FunctionEncoder.encode(function));
+        Transaction transaction = Transaction.createFunctionCallTransaction(addressList.get(0), nonce,
+                Transaction.DEFAULT_GAS, null, armaTokenAddress, FunctionEncoder.encode(function));
+
 
         try {
-        // Sent transaction
+            // Sent transaction
             web3j.ethSendTransaction(transaction).send();
         } catch (IOException e1) {
-        // TODO Auto-generated catch block
+            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
 
@@ -125,14 +134,14 @@ public class TokenService {
             e.printStackTrace();
         }
 
-
     }
 
     // Get total supplied token
     public String totalSupply() throws Exception {
 
         List<Type> decode = viewFunction("totalSupply", Collections.emptyList(),
-                Arrays.asList(new TypeReference<Uint256>() {}));
+                Arrays.asList(new TypeReference<Uint256>() {
+                }));
 
         return decode.get(0).getValue().toString();
 
@@ -152,7 +161,8 @@ public class TokenService {
         System.out.println(address);
 
         List<Type> decode = viewFunction("balanceOf", Arrays.asList(new Address(address)),
-                Arrays.asList(new TypeReference<Uint256>() {}));
+                Arrays.asList(new TypeReference<Uint256>() {
+                }));
         balance = decode.get(0).getValue().toString();
 
         return balance;
@@ -164,12 +174,11 @@ public class TokenService {
         UserInfo targetUser = userInfoRepository.findByEmail(email);
         BigInteger amount_ = new BigInteger(amount);
 
-        if (targetUser == null){
+        if (targetUser == null) {
             System.out.println("user [" + email + "] didn't exist");
             return false;
         }
 
-           
 
         String address = targetUser.getPublic_key();
 
@@ -179,7 +188,7 @@ public class TokenService {
         List<Type> inputParameters = new ArrayList<>();
         inputParameters.add(new Address(address));
         inputParameters.add(new Uint256(amount_));
-        
+
 
         transactionFunction("mint", inputParameters, Collections.emptyList());
 
@@ -187,16 +196,16 @@ public class TokenService {
 
     }
 
-    // 토큰 전송 기능 
+    // 토큰 전송 기능
     // 잔액이 부족한 경우에 대한 처리 추가할 것
-    
-    public boolean sendToken(String from, String to, String amount){
+
+    public boolean sendToken(String from, String to, String amount) {
         UserInfo fromUser = userInfoRepository.findByEmail(from);
         UserInfo toUser = userInfoRepository.findByEmail(to);
 
         BigInteger amount_ = new BigInteger(amount);
 
-        if (fromUser == null || toUser == null){
+        if (fromUser == null || toUser == null) {
             System.out.println("user didn't exist");
             return false;
         }
@@ -204,12 +213,12 @@ public class TokenService {
         String fromUserAddress = fromUser.getPublic_key();
         String toUserAddress = toUser.getPublic_key();
 
-        
+
         List<Type> inputParameters = new ArrayList<>();
         inputParameters.add(new Address(fromUserAddress));
         inputParameters.add(new Address(toUserAddress));
         inputParameters.add(new Uint256(amount_));
-        
+
 
         transactionFunction("sendToken", inputParameters, Collections.emptyList());
 
@@ -217,32 +226,43 @@ public class TokenService {
 
     }
 
-    public boolean burnToken(String from, String amount){
+    public boolean burnToken(String from, String amount) {
         UserInfo fromUser = userInfoRepository.findByEmail(from);
-        
+
 
         BigInteger amount_ = new BigInteger(amount);
 
-        if (fromUser == null){
+        if (fromUser == null) {
             System.out.println("user didn't exist");
             return false;
         }
 
         String fromUserAddress = fromUser.getPublic_key();
-        
-        
+
         List<Type> inputParameters = new ArrayList<>();
         inputParameters.add(new Address(fromUserAddress));
-        
+
         inputParameters.add(new Uint256(amount_));
-        
+
 
         transactionFunction("burn", inputParameters, Collections.emptyList());
 
         return true;
     }
 
+
+    public String createAccount(UserInfo userinfo) throws InvalidAlgorithmParameterException, NoSuchAlgorithmException,
+            NoSuchProviderException, CipherException {
+
+        ECKeyPair keyPair = Keys.createEcKeyPair();
+            
+        String password = userinfo.getPassword();
+
+        WalletFile wallet = Wallet.createStandard(password, keyPair);       
+
+        return wallet.getAddress();
+    }
+
     
-    
-    
+
 }
