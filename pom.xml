@@ -86,6 +86,7 @@
       <groupId>org.web3j</groupId>
       <artifactId>core</artifactId>
       <version>4.2.0</version>
+
    </dependency>
       <dependency>
           <groupId>org.apache.httpcomponents</groupId>
@@ -97,6 +98,7 @@
           <artifactId>armagyeddon</artifactId>
           <version>0.0.1-SNAPSHOT</version>
       </dependency>
+
   </dependencies>
   <build>
     <plugins>
@@ -104,14 +106,14 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-                <source>9</source>
-                <target>9</target>
-            </configuration>
-        </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>9</source>
+          <target>9</target>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
