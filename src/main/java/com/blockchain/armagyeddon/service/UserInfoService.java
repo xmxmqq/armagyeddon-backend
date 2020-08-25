@@ -27,5 +27,6 @@ public class UserInfoService {
     public UserInfo getUserInfo(String email) {
 
         return userInfoRepository.findByEmail(email);
+
     }
 }

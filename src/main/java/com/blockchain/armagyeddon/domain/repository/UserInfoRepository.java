@@ -11,6 +11,8 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
 
     boolean existsByEmail(String email);
 
+    UserInfo findUserInfo(Long UserId);
+
 //    List<UserInfo> findAll();
 //
 //    UserInfo findById(Long id);

@@ -1,2 +1,9 @@
-package com.blockchain.armagyeddon.service;public class GyeService {
+package com.blockchain.armagyeddon.service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class GyeService {
 }
