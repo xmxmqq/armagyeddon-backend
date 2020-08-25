@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-
-    public class GyeController {
+public class GyeController {
 
     @Autowired
     GyeService gyeService;
 
     //계 정보 입력
     @PostMapping("/gye")
-    public String saveGye(Gye gye) {
-        gyeService.save(gye);
+    public String saveGye(@RequestBody GyeDto gye) {
+        System.out.println("Controller response : " + gye.getName());
+        gyeService.save(gye.toEntity());
         return "ok!";
     }
 

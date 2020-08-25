@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GyeDto {
-    private Long id;
+
     private String type;
     private String name;
     private int targetMoney;
@@ -21,7 +21,6 @@ public class GyeDto {
 
     public Gye toEntity() {
         Gye gye = Gye.builder()
-                .id(id)
                 .type(type)
                 .name(name)
                 .targetMoney(targetMoney)

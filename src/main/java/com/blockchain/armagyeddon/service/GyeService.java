@@ -42,7 +42,9 @@ public class GyeService {
 
     //계 입력
     public void save(Gye gye){
+        System.out.println("gye name : " + gye.getName());
         if(!gyeRepository.existsByName(gye.getName())){
+
             gyeRepository.save(gye);
         } else {
             System.out.println("exitsewfwegefwekj");
