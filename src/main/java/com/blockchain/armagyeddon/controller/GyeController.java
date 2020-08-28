@@ -1,6 +1,7 @@
 package com.blockchain.armagyeddon.controller;
 
 import com.blockchain.armagyeddon.domain.dto.GyeDto;
+import com.blockchain.armagyeddon.domain.dto.GyeDtoNoPublicKey;
 import com.blockchain.armagyeddon.domain.entity.Gye;
 import com.blockchain.armagyeddon.service.GyeService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,7 +33,24 @@ public class GyeController {
     @GetMapping("/gye")
     public ResponseEntity<List> findGye() {
 
-        return ResponseEntity.ok(gyeService.findAll());
+        List<GyeDtoNoPublicKey> gyeDtoList = new ArrayList<>();
+
+        for (Gye gye : gyeService.findAll()) {
+            gyeDtoList.add(GyeDtoNoPublicKey.builder()
+                    .id(gye.getId())
+                    .type(gye.getType())
+                    .title(gye.getTitle())
+                    .targetMoney(gye.getTargetMoney())
+                    .period(gye.getPeriod())
+                    .totalMember(gye.getTotalMember())
+                    .state(gye.getState())
+                    .master(gye.getMaster()).build());
+        }
+
+
+
+
+        return ResponseEntity.ok(gyeDtoList);
     }
 
     // 계 id로 조회

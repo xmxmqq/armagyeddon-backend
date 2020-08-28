@@ -17,8 +17,9 @@ public class UserInfoController {
 
     // 회원 가입
     @PostMapping("/user-info")
-    public void saveUserInfo(@RequestBody UserInfoDto userInfoDto) {
+    public String saveUserInfo(@RequestBody UserInfoDto userInfoDto) {
         userInfoService.saveUserInfo(userInfoDto);
+        return "save user " + userInfoDto.getName();
     }
 
     @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already exists")

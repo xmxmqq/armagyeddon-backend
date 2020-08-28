@@ -259,7 +259,7 @@ public class TokenService {
 
         WalletFile wallet = Wallet.createStandard(password, keyPair);       
 
-        return wallet.getAddress();
+        return "0x" + wallet.getAddress();
     }
 
     
