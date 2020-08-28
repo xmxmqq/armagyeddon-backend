@@ -157,7 +157,7 @@ public class TokenService {
         if (targetUser == null)
             return "user [" + email + "] didn't exist";
 
-        String address = targetUser.getPublic_key();
+        String address = targetUser.getPublicKey();
 
         System.out.println(address);
 
@@ -181,7 +181,7 @@ public class TokenService {
         }
 
 
-        String address = targetUser.getPublic_key();
+        String address = targetUser.getPublicKey();
 
         System.out.println("user address : " + address);
 
@@ -211,8 +211,8 @@ public class TokenService {
             return false;
         }
 
-        String fromUserAddress = fromUser.getPublic_key();
-        String toUserAddress = toUser.getPublic_key();
+        String fromUserAddress = fromUser.getPublicKey();
+        String toUserAddress = toUser.getPublicKey();
 
 
         List<Type> inputParameters = new ArrayList<>();
@@ -238,7 +238,7 @@ public class TokenService {
             return false;
         }
 
-        String fromUserAddress = fromUser.getPublic_key();
+        String fromUserAddress = fromUser.getPublicKey();
 
         List<Type> inputParameters = new ArrayList<>();
         inputParameters.add(new Address(fromUserAddress));
