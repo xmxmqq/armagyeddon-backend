@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GyeDto {
+public class CreateGyeDto {
 
     private String type;
 
@@ -23,4 +23,5 @@ public class GyeDto {
 
     private String master;
 
+    private int turn;
 }

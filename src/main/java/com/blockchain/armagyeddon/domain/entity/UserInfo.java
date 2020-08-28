@@ -32,6 +32,7 @@ public class UserInfo {
     @Column(nullable = false)
     private String publicKey;
 
-
+    @OneToMany(mappedBy = "userInfo")
+    private List<Member> gyes = new ArrayList<>();
 
 }
