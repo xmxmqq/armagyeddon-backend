@@ -3,21 +3,23 @@ package com.blockchain.armagyeddon.controller;
 import com.blockchain.armagyeddon.domain.dto.UserInfoDto;
 import com.blockchain.armagyeddon.service.UserInfoService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping
 public class UserInfoController {
 
-    private UserInfoService userInfoService;
+    private final UserInfoService userInfoService;
 
-    // db에 저장
+    // 회원 가입
     @PostMapping("/user-info")
-    public void saveUserInfo(@RequestBody UserInfoDto userInfoDto) {
+    public String saveUserInfo(@RequestBody UserInfoDto userInfoDto) {
         userInfoService.saveUserInfo(userInfoDto);
+        return "save user " + userInfoDto.getName();
     }
 
     @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already exists")
@@ -27,45 +29,6 @@ public class UserInfoController {
         }
     }
 
-
-//    // 모든 회원 조회
-//    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
-//    public String getAllusers() {
-//        List<User> user = userService.findAll();
-//
-//        return <List<User>>(user, HttpStatus.OK);
-//    }
-
-//    // email로 회원 id 조회
-//    @GetMapping(value = "/{email}", produces = {MediaType.APPLICATION_JSON_VALUE})
-//    public Long getUser(@PathVariable("email")  String email) {
-//        UserInfo userInfo = userInfoService.findByEmail(email);
-//        return userInfo.getId();
-//    }
-
-    // id로 회원 삭제
-//    @DeleteMapping(value = "/{id}")
-//    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
-//        userInfoService.deleteByIdContaining(id);
-//    }
-
-//    // 회원번호로 회원 수정(mbrNo로 회원을 찾아 Member 객체의 id, name으로 수정함)
-//    @PutMapping(value = "/{number}", produces = {MediaType.APPLICATION_JSON_VALUE})
-//    public ResponseEntity<UserInfo> updateUser(@PathVariable("number") String number, UserInfo userInfo) {
-//        userInfoService.updateBy(number, user);
-//
-//        return new ResponseEntity<UserInfo>(userInfo, HttpStatus.OK);
-//    }
-
-//    // 회원 입력
-//    @PostMapping(value = "/save", produces = {MediaType.APPLICATION_JSON_VALUE})
-//    public ResponseEntity<UserInfo> save(UserInfo user) {
-//        return new ResponseEntity<UserInfo>(userInfoService.save(user), HttpStatus.OK);
-//    }
-
-//    // 회원 입력
-//    @RequestMapping(value = "/saveUserInfo", method = RequestMethod.GET)
-//    public void save(HttpServletRequest request, UserInfo userInfo) {
 
 }
 

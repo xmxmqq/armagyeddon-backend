@@ -7,7 +7,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GyeDto {
+public class GyeDtoNoPublicKey {
+
+    private Long id;
 
     private String type;
 
