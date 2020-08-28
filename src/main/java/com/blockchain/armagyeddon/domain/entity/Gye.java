@@ -21,27 +21,26 @@ public class Gye {
     @GeneratedValue
     private Long id;
 
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     private String type;
 
-    @Column(length = 30, unique = true, nullable = false)
+    @Column(nullable = false)
     private String title;
 
-    @Column(length = 30, nullable = false)
+    @Column(nullable = false)
     private int targetMoney;
 
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     private int period;
 
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     private int totalMember;
 
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     private String state;
 
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     private String master;
 
-    @OneToMany(mappedBy = "gye") // mappedBy(참조당하는 쪽) = gye
-    private List<GyeUser> gyeUsers = new ArrayList<>();
+    private String publicKey;
 }
