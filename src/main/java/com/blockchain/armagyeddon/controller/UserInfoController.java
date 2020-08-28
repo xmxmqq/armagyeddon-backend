@@ -1,6 +1,8 @@
 package com.blockchain.armagyeddon.controller;
 
 import com.blockchain.armagyeddon.domain.dto.UserInfoDto;
+import com.blockchain.armagyeddon.domain.dto.UserInfoDtoNoPassword;
+import com.blockchain.armagyeddon.domain.entity.UserInfo;
 import com.blockchain.armagyeddon.service.UserInfoService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,15 @@ public class UserInfoController {
     public String saveUserInfo(@RequestBody UserInfoDto userInfoDto) {
         userInfoService.saveUserInfo(userInfoDto);
         return "save user " + userInfoDto.getName();
+    }
+
+    @GetMapping("/user-info/{email}")
+    public UserInfoDtoNoPassword getUserInfo(@PathVariable("email") String email) {
+        UserInfo userinfo = userInfoService.getUserInfo(email);
+
+        return UserInfoDtoNoPassword.builder()
+                .email(userinfo.getEmail())
+                .name(userinfo.getName()).build();
     }
 
     @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already exists")
