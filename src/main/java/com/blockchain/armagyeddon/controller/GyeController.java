@@ -3,6 +3,7 @@ package com.blockchain.armagyeddon.controller;
 import com.blockchain.armagyeddon.domain.dto.GyeDto;
 import com.blockchain.armagyeddon.domain.dto.GyeDtoNoPublicKey;
 import com.blockchain.armagyeddon.domain.entity.Gye;
+import com.blockchain.armagyeddon.domain.entity.Member;
 import com.blockchain.armagyeddon.service.GyeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,14 @@ public class GyeController {
         return ResponseEntity.ok(gyeService.findById(id));
     }
 
+
+    @PostMapping("/member")
+    public String joinMember() {
+       gyeService.saveMember(25L,24L);
+
+
+
+        return "good!";
+    }
 
 }

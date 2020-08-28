@@ -33,6 +33,6 @@ public class UserInfo {
     private String publicKey;
 
     @OneToMany(mappedBy = "userInfo")
-    private List<Member> members = new ArrayList<>();
+    private List<Member> gyes = new ArrayList<>();
 
 }
