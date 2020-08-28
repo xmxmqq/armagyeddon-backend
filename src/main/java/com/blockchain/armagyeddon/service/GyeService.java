@@ -2,12 +2,13 @@
 package com.blockchain.armagyeddon.service;
 
 
-import com.blockchain.armagyeddon.domain.dto.GyeDto;
+import com.blockchain.armagyeddon.domain.dto.CreateGyeDto;
 import com.blockchain.armagyeddon.domain.entity.Gye;
 import com.blockchain.armagyeddon.domain.entity.Member;
 import com.blockchain.armagyeddon.domain.entity.UserInfo;
 import com.blockchain.armagyeddon.domain.repository.GyeRepository;
 import com.blockchain.armagyeddon.domain.repository.MemberRepository;
+import com.blockchain.armagyeddon.domain.repository.UserInfoRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,7 +32,7 @@ public class GyeService {
     private final TokenService tokenService;
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
-    private final UserInfoService userInfoService;
+    private final UserInfoRepository userInfoRepository;
 
     public List<Gye> findAll() {
 
@@ -49,10 +50,10 @@ public class GyeService {
     }
 
     //계 생성
-    public Long save(GyeDto gyeDto) {
+    public Long save(CreateGyeDto createGyeDto) {
 
 
-        String password = passwordEncoder.encode(gyeDto.getMaster());
+        String password = passwordEncoder.encode(createGyeDto.getMaster());
         String publicKey = "";
         try {
             publicKey = tokenService.createAccount(password);
@@ -65,30 +66,35 @@ public class GyeService {
         } catch (CipherException e) {
             e.printStackTrace();
         }
-        return gyeRepository.save(Gye.builder()
-                .type(gyeDto.getType())
-                .title(gyeDto.getTitle())
-                .targetMoney(gyeDto.getTargetMoney())
-                .period(gyeDto.getPeriod())
-                .totalMember(gyeDto.getTotalMember())
-                .state(gyeDto.getState())
-                .master(gyeDto.getMaster())
+         Long gyeId = gyeRepository.save(Gye.builder()
+                .type(createGyeDto.getType())
+                .title(createGyeDto.getTitle())
+                .targetMoney(createGyeDto.getTargetMoney())
+                .period(createGyeDto.getPeriod())
+                .totalMember(createGyeDto.getTotalMember())
+                .state(createGyeDto.getState())
+                .master(createGyeDto.getMaster())
                 .publicKey(publicKey).build()).getId();
 
+        // 계 생성시 계주는 자동으로 계 맴버에 포함된다.
+        this.saveMember(gyeId, createGyeDto.getMaster(), createGyeDto.getTurn());
 
+        return gyeId;
     }
 
-    public Long saveMember(Long gyeId, Long userId) {
+    public Long saveMember(Long gyeId, String email, int turn) {
+
         Gye gye = gyeRepository.findById(gyeId).get();
-        UserInfo userInfo = userInfoService.getUserInfo(userId);
+        UserInfo userInfo = userInfoRepository.findByEmail(email);
 
         Member member = Member.builder()
                 .gye(gye)
                 .userInfo(userInfo)
                 .userState("live")
-                .turn("1").build();
+                .turn(turn).build();
 
         Member savedMember = memberRepository.save(member);
+
 
         return savedMember.getId();
     }

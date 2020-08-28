@@ -1,15 +1,15 @@
 package com.blockchain.armagyeddon.controller;
 
-import com.blockchain.armagyeddon.domain.dto.GyeDto;
+import com.blockchain.armagyeddon.domain.dto.CreateGyeDto;
 import com.blockchain.armagyeddon.domain.dto.GyeDtoNoPublicKey;
+import com.blockchain.armagyeddon.domain.dto.JoinGyeDto;
 import com.blockchain.armagyeddon.domain.entity.Gye;
-import com.blockchain.armagyeddon.domain.entity.Member;
 import com.blockchain.armagyeddon.service.GyeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +24,10 @@ public class GyeController {
 
     // 계 생성
     @PostMapping("/gye")
-    public Long saveGye(@RequestBody GyeDto gyeDto) {
-        System.out.println("Controller response : " + gyeDto.getTitle());
+    public Long saveGye(@RequestBody CreateGyeDto createGyeDto) {
+        System.out.println("Controller response : " + createGyeDto.getTitle());
 
-        return gyeService.save(gyeDto);
+        return gyeService.save(createGyeDto);
     }
 
     // 계 정보 전체 조회
@@ -62,8 +62,11 @@ public class GyeController {
 
 
     @PostMapping("/member")
-    public String joinMember() {
-       gyeService.saveMember(25L,24L);
+    public String joinMember(@RequestBody JoinGyeDto joinGyeDto, Principal currentUser) {
+
+
+       gyeService.saveMember(joinGyeDto.getGyeId(), currentUser.getName(), joinGyeDto.getTurn());
+
 
 
 

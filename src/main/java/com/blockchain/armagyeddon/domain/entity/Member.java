@@ -30,6 +30,6 @@ public class Member {
     private String userState;
 
     @Column(nullable = false)
-    private String turn;
+    private int turn;
 
 }
