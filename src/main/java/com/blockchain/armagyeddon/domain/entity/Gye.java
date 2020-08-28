@@ -5,6 +5,9 @@ import javax.persistence.*;
 
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -40,4 +43,8 @@ public class Gye {
     private String master;
 
     private String publicKey;
+
+    @OneToMany(mappedBy = "gye")
+    private List<Member> members = new ArrayList<>();
 }
+
