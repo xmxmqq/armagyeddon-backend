@@ -55,8 +55,19 @@ public class GyeController {
 
     // 계 id로 조회
     @GetMapping("/gye/{id}")
-    public ResponseEntity<Gye> findGye(@PathVariable Long id) {
-        return ResponseEntity.ok(gyeService.findById(id));
+    public ResponseEntity<GyeDtoNoPublicKey> findGye(@PathVariable Long id) {
+        Gye gye = gyeService.findById(id);
+
+
+        return ResponseEntity.ok(GyeDtoNoPublicKey.builder()
+                .id(gye.getId())
+                .type(gye.getType())
+                .title(gye.getTitle())
+                .targetMoney(gye.getTargetMoney())
+                .period(gye.getPeriod())
+                .totalMember(gye.getTotalMember())
+                .state(gye.getState())
+                .master(gye.getMaster()).build());
     }
 
 
