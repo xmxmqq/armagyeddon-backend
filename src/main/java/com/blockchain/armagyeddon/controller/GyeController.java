@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +24,9 @@ public class GyeController {
 
     // 계 생성
     @PostMapping("/gye")
-    public Long saveGye(@RequestBody GyeDto gyeDto) {
+    public Long saveGye(@RequestBody GyeDto gyeDto, Principal userInfo) {
         System.out.println("Controller response : " + gyeDto.getTitle());
-
+        gyeDto.setMaster(userInfo.getName());
         return gyeService.save(gyeDto);
     }
 
