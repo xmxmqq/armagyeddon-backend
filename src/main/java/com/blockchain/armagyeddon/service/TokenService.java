@@ -252,12 +252,10 @@ public class TokenService {
     }
 
 
-    public String createAccount(UserInfo userinfo) throws InvalidAlgorithmParameterException, NoSuchAlgorithmException,
+    public String createAccount(String password) throws InvalidAlgorithmParameterException, NoSuchAlgorithmException,
             NoSuchProviderException, CipherException {
 
         ECKeyPair keyPair = Keys.createEcKeyPair();
-            
-        String password = userinfo.getPassword();
 
         WalletFile wallet = Wallet.createStandard(password, keyPair);       
 
