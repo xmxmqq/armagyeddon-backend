@@ -1,10 +1,17 @@
 package com.blockchain.armagyeddon.controller;
 
 import com.blockchain.armagyeddon.domain.dto.UserInfoDto;
+import com.blockchain.armagyeddon.domain.entity.UserInfo;
 import com.blockchain.armagyeddon.service.UserInfoService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @CrossOrigin
@@ -43,10 +50,12 @@ public class UserInfoController {
 //        return userInfo.getId();
 //    }
 
-    // id로 회원 삭제
-//    @DeleteMapping(value = "/{id}")
-//    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
-//        userInfoService.deleteByIdContaining(id);
+    // 회원번호로 회원 삭제
+//    @DeleteMapping(value = "/{number}", produces = {MediaType.APPLICATION_JSON_VALUE})
+//    public ResponseEntity<Void> deleteUser(@PathVariable("number") Long number) {
+//        userService.deleteByNumberContaining(number);
+//
+//        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 //    }
 
 //    // 회원번호로 회원 수정(mbrNo로 회원을 찾아 Member 객체의 id, name으로 수정함)
