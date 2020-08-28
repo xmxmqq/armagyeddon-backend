@@ -9,13 +9,4 @@ import java.util.Optional;
 
 public interface GyeRepository extends JpaRepository<Gye, Long>{
 
-    //계 검색
-    Optional<Gye> findById(Long id);
-    Gye findByName(String name);
-    Gye findByNameLike(String keyword);
-    Gye findByType(String type);
-    Gye findByPeriod(String period);
-    Gye findByTargetMoney(int targetmoney);
-    boolean existsByName(String name);
-
 }
