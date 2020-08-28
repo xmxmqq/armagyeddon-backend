@@ -13,23 +13,21 @@ import lombok.*;
 public class GyeDto {
     private Long id;
     private String type;
-    private String title;
+    private String name;
     private int targetMoney;
     private int period;
     private int totalMember;
     private String state;
-    private String master;
 
     public Gye toEntity() {
         Gye gye = Gye.builder()
                 .id(id)
                 .type(type)
-                .title(title)
+                .name(name)
                 .targetMoney(targetMoney)
                 .period(period)
                 .totalMember(totalMember)
                 .state(state)
-                .master(master)
                 .build();
         return gye;
     }
