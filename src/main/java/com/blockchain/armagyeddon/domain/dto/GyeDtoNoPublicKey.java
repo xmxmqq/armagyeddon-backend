@@ -1,6 +1,10 @@
 package com.blockchain.armagyeddon.domain.dto;
 
+import com.blockchain.armagyeddon.domain.entity.Member;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,5 +28,7 @@ public class GyeDtoNoPublicKey {
     private String state;
 
     private String master;
+
+    private List<UserInfoDtoNoPassword> members = new ArrayList<>();
 
 }

@@ -2,7 +2,9 @@ package com.blockchain.armagyeddon.controller;
 
 import com.blockchain.armagyeddon.domain.dto.CreateGyeDto;
 import com.blockchain.armagyeddon.domain.dto.GyeDtoNoPublicKey;
+import com.blockchain.armagyeddon.domain.entity.Member;
 import com.blockchain.armagyeddon.domain.dto.JoinGyeDto;
+import com.blockchain.armagyeddon.domain.dto.UserInfoDtoNoPassword;
 import com.blockchain.armagyeddon.domain.entity.Gye;
 import com.blockchain.armagyeddon.service.GyeService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +27,7 @@ public class GyeController {
     // 계 생성
     @PostMapping("/gye")
     public Long saveGye(@RequestBody CreateGyeDto createGyeDto, Principal userInfo) {
-        System.out.println("Controller response : " + gyeDto.getTitle());
+        System.out.println("Controller response : " + createGyeDto.getTitle());
         createGyeDto.setMaster(userInfo.getName());
         return gyeService.save(createGyeDto);
 
@@ -38,6 +40,14 @@ public class GyeController {
         List<GyeDtoNoPublicKey> gyeDtoList = new ArrayList<>();
 
         for (Gye gye : gyeService.findAll()) {
+            List<UserInfoDtoNoPassword> userInfoDto = new ArrayList<>();
+            for (Member member : gye.getMembers()) {
+                UserInfoDtoNoPassword dto = UserInfoDtoNoPassword.builder()
+                        .email(member.getUserInfo().getEmail())
+                        .name(member.getUserInfo().getName()).build();
+                userInfoDto.add(dto);
+            }
+
             gyeDtoList.add(GyeDtoNoPublicKey.builder()
                     .id(gye.getId())
                     .type(gye.getType())
@@ -46,7 +56,8 @@ public class GyeController {
                     .period(gye.getPeriod())
                     .totalMember(gye.getTotalMember())
                     .state(gye.getState())
-                    .master(gye.getMaster()).build());
+                    .master(gye.getMaster())
+                    .members(userInfoDto).build());
         }
 
 
@@ -60,6 +71,14 @@ public class GyeController {
     public ResponseEntity<GyeDtoNoPublicKey> findGye(@PathVariable Long id) {
         Gye gye = gyeService.findById(id);
 
+        List<UserInfoDtoNoPassword> userInfoDto = new ArrayList<>();
+
+        for (Member member : gye.getMembers()) {
+            UserInfoDtoNoPassword dto = UserInfoDtoNoPassword.builder()
+                    .email(member.getUserInfo().getEmail())
+                    .name(member.getUserInfo().getName()).build();
+            userInfoDto.add(dto);
+        }
 
         return ResponseEntity.ok(GyeDtoNoPublicKey.builder()
                 .id(gye.getId())
@@ -69,7 +88,8 @@ public class GyeController {
                 .period(gye.getPeriod())
                 .totalMember(gye.getTotalMember())
                 .state(gye.getState())
-                .master(gye.getMaster()).build());
+                .master(gye.getMaster())
+                .members(userInfoDto).build());
     }
 
 
